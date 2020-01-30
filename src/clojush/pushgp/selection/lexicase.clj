@@ -2,10 +2,10 @@
   (:use [clojush random]))
 
 (defn shuffle-cases
-  [pop argmap]
+  [pop argmap errors]
   (if (= (:sort-meta-errors-for-lexicase argmap) :random)
-    (lshuffle (range (count (:errors (first pop)))))
-    (let [num-all-errors (count (:errors (first pop))) ;; will included meta-errors, added in select
+    (lshuffle (range (count (errors (first pop)))))
+    (let [num-all-errors (count (errors (first pop))) ;; will included meta-errors, added in select
           num-meta-errors (count (:meta-errors (first pop)))
           num-true-errors (- num-all-errors num-meta-errors)
           true-error-indices (range num-true-errors)
@@ -20,15 +20,16 @@
 (defn lexicase-selection
   "Returns an individual that does the best on the fitness cases when considered one at a
   time in random order."
-  [pop argmap]
+  ([pop argmap] (lexicase-selection pop argmap :errors))
+  ([pop argmap errors]
   (loop [survivors pop
-         cases (shuffle-cases pop argmap)]
+         cases (shuffle-cases pop argmap errors)]
     (if (or (empty? cases)
             (empty? (rest survivors))
             (< (lrand) (:lexicase-slippage argmap)))
       (lrand-nth survivors)
       (let [min-err-for-case (apply min (map #(nth % (first cases))
-                                             (map :errors survivors)))]
-        (recur (filter #(= (nth (:errors %) (first cases)) min-err-for-case)
+                                             (map errors survivors)))]
+        (recur (filter #(= (nth (errors %) (first cases)) min-err-for-case)
                        survivors)
-               (rest cases))))))
+               (rest cases)))))))
