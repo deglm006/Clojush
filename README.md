@@ -1,3 +1,8 @@
+See [here](summed_lexicase.clj) for summed partition lexicase selection.
+
+
+
+
 Clojush [![Travis branch](https://img.shields.io/travis/lspector/Clojush/master.svg?style=flat-square)](https://travis-ci.org/lspector/Clojush) [![Coveralls branch](https://img.shields.io/coveralls/lspector/Clojush/master.svg?style=flat-square)](https://coveralls.io/github/lspector/Clojush) [![API Docs](https://img.shields.io/badge/api%20docs-master-blue.svg?style=flat-square)](http://lspector.github.io/Clojush/) [![Clojars Project](https://img.shields.io/clojars/v/clojush.svg?style=flat-square)](http://clojars.org/clojush)
 =======
 
